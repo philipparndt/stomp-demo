@@ -3,8 +3,14 @@
 This is a small demo to test communication between a ActiveMQ message broker and a React App.
 
 Start the server using `docker-compose up` in server folder. It will expose three ports:
-- locahost:8161 as web interface
-- localhost:61614 websocket using stomp
-- localhost:1883 mqtt
+
+| Port  | Description                         |
+| ----- | ----------------------------------- |
+| 8161  | Web interface http://localhost:8161 |
+| 61614 | Websocket using stomp               |
+| 1883  | MQTT                                |
+
+The web UI is using a default configuration with default user (admin/admin). 
+This project is just for demo purpose, do not use this in a production environment.
 
 Start the client using `npm start` in client folder.

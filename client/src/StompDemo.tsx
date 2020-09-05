@@ -60,7 +60,7 @@ function StompDemo() {
         <div className="navbar-start">
           <div className="navbar-item">
             <div className="buttons">
-              <a
+              <button
                 className="button is-primary"
                 onClick={(e) => {
                   if (client) {
@@ -72,7 +72,7 @@ function StompDemo() {
                 }}
               >
                 <strong>Publish message</strong>
-              </a>
+              </button>
             </div>
           </div>
         </div>

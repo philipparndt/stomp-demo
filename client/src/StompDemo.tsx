@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from 'react'
-import { Client, Message } from '@stomp/stompjs'
+import { Client } from '@stomp/stompjs'
 import { v4 as uuidv4 } from 'uuid'
+
+type Msg = {
+    id: string
+    body: string
+}
 
 function StompDemo() {
     const [client, setClient] = useState<Client | undefined>(undefined)
-    const [messages, setMessages] = useState<Message[]>([])
+    const [messages, setMessages] = useState<Msg[]>([])
 
     useEffect(() => {
         if (client) {
             const subscription = client.subscribe("/topic/general", message => {
                 console.log(messages)
-                setMessages([...messages, message])
+                setMessages([...messages, {id: uuidv4(), body: message.body}])
             })
 
             return () => subscription.unsubscribe()
@@ -54,7 +59,7 @@ function StompDemo() {
         sendButton = <p>no client available.</p>
     }
 
-    const messageList = messages.map(message => <li key={message.body}>{message.body}</li>)
+    const messageList = messages.map(message => <li key={message.id}>{message.body}</li>)
 
     return (
         <>

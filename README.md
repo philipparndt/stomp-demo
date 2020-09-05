@@ -4,11 +4,11 @@ This is a small demo to test communication between a ActiveMQ message broker and
 
 Start the server using `docker-compose up` in server folder. It will expose three ports:
 
-| Port  | Description                         |
-| ----- | ----------------------------------- |
-| 8161  | Web interface http://localhost:8161 |
-| 61614 | Websocket using stomp               |
-| 1883  | MQTT                                |
+| Port                          | Description           |
+| ----------------------------- | --------------------- |
+| [8161](http://localhost:8161) | Web interface         |
+| 61614                         | Websocket using stomp |
+| 1883                          | MQTT                  |
 
 The web UI is using a default configuration with default user (admin/admin). 
 This project is just for demo purpose, do not use this in a production environment.

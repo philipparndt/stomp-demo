@@ -7,15 +7,15 @@ export interface StompContextValue {
     renderPromises?: Record<any, any>
 }
 
-let apolloContext: React.Context<StompContextValue>
+let context: React.Context<StompContextValue>
 
 export function getStompContext() {
-    if (!apolloContext) {
-        apolloContext = createContext<StompContextValue>({})
+    if (!context) {
+        context = createContext<StompContextValue>({})
     }
-    return apolloContext;
+    return context;
 }
 
 export function resetStompContext() {
-    apolloContext = createContext<StompContextValue>({})
+    context = createContext<StompContextValue>({})
 }

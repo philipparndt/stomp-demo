@@ -15,13 +15,11 @@ function StompDemo() {
     const client = useStompClient();
 
     useEffect(() => {
-        if (client.connected) {
-            const subscription = client.subscribe("/topic/general", (message) => {
-                emitter.next(message.body)
-            })
+        const subscription = client.subscribe("/topic/general", (message) => {
+            emitter.next(message.body)
+        })
 
-            return () => subscription.unsubscribe()
-        }
+        return () => subscription.unsubscribe()
     }, [client])
 
     return (

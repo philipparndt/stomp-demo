@@ -16,6 +16,6 @@ export function getStompContext() {
     return apolloContext;
 }
 
-export function resetApolloContext() {
+export function resetStompContext() {
     apolloContext = createContext<StompContextValue>({})
 }

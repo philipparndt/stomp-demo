@@ -6,12 +6,12 @@ import { interval, Observable } from "rxjs"
 const intCounter = interval(100)
 
 let emitter: { next: (arg0: string) => void }
-const observable = Observable.create((e: any) => (emitter = e))
+const observable = new Observable<string>(subscriber => (emitter = subscriber));
 
 function StompDemo() {
     const [client, setClient] = useState<Client | undefined>(undefined)
     const obsCount = useSubscribe(intCounter, 0)
-    const current = useSubscribe(observable, 0)
+    const current = useSubscribe(observable, "0")
 
     useEffect(() => {
         if (client) {

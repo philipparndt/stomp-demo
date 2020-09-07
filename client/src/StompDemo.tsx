@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react"
-import { Client } from "@stomp/stompjs"
+import React, { useEffect } from "react"
 import { useSubscribe } from "use-subscribe"
 import { interval, Observable } from "rxjs"
+import {useStompClient} from "./stomp/useStompClient";
 
 const intCounter = interval(100)
 
@@ -9,12 +9,13 @@ let emitter: { next: (arg0: string) => void }
 const observable = new Observable<string>(subscriber => (emitter = subscriber));
 
 function StompDemo() {
-    const [client, setClient] = useState<Client | undefined>(undefined)
     const obsCount = useSubscribe(intCounter, 0)
     const current = useSubscribe(observable, "0")
 
+    const client = useStompClient();
+
     useEffect(() => {
-        if (client) {
+        if (client.connected) {
             const subscription = client.subscribe("/topic/general", (message) => {
                 emitter.next(message.body)
             })
@@ -22,32 +23,6 @@ function StompDemo() {
             return () => subscription.unsubscribe()
         }
     }, [client])
-
-    useEffect(() => {
-        const client = new Client({
-            brokerURL: "ws://localhost:61614",
-            connectHeaders: {},
-            debug: function (str: string) {
-                console.log(str)
-            },
-            reconnectDelay: 5000,
-            heartbeatIncoming: 30000,
-            heartbeatOutgoing: 30000
-        })
-
-        client.onConnect = function (frame) {
-            setClient(client)
-        }
-
-        client.onStompError = function (frame) {
-            console.log("Broker reported error: " + frame.headers["message"])
-            console.log("Additional details: " + frame.body)
-        }
-
-        client.activate()
-
-        return () => client.deactivate()
-    }, [])
 
     return (
         <>

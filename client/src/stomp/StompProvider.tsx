@@ -23,6 +23,12 @@ export const StompProvider: React.FC<StompProviderProps> = ({
         client.onStompError = function (frame) {
             console.log("Broker reported error: " + frame.headers["message"])
             console.log("Additional details: " + frame.body)
+            setConnectedClient(undefined)
+        }
+
+        client.onDisconnect = function (frame) {
+            console.log("Disconnected")
+            setConnectedClient(undefined)
         }
 
         client.activate()
@@ -54,6 +60,6 @@ export const StompProvider: React.FC<StompProviderProps> = ({
         );
     }
     else {
-        return <div>Connecting...</div>
+        return <div>Not connected</div>
     }
 };

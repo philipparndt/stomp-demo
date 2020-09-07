@@ -31,12 +31,10 @@ function StompDemo() {
                             <button
                                 className="button is-primary"
                                 onClick={(e) => {
-                                    if (client) {
-                                        client.publish({
-                                            destination: "/topic/general",
-                                            body: `${obsCount}`
-                                        })
-                                    }
+                                    client.publish({
+                                        destination: "/topic/general",
+                                        body: `${obsCount}`
+                                    })
                                 }}
                             >
                                 <strong>Publish message</strong>
